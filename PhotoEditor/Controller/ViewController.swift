@@ -6,37 +6,66 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ViewController: UIViewController{
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    private var imagesArray = [Image]()
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
         
-        DispatchQueue.main.async {
-            getData()
-        }
+        super.viewDidLoad()
+        navigationItem.title = "Tap To Edit"
+        
+        loadImages()
 
         collectionView.delegate = self
         collectionView.dataSource = self
     }
     
+    private func loadImages() {
+        
+        ImageHandler.shared.fetchImages { [unowned self] (result, images) in
+            
+            if let res = result {
+                self.imagesArray = images ?? self.imagesArray
+                collectionView.reloadData()
+                
+                print(res ? "Success" : "Error")
+            }
+        }
+    }
+    
+    private func updateUI(atIndex: Int, imgView: UIImageView) {
+        
+        guard let url = URL(string: imagesArray[atIndex].url) else { return }
+        imgView.kf.setImage(with: url)
+        
+    }
+    
 }
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+// MARK:-  Datasource
+extension ViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return imagesArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
         
-        cell.imageView.backgroundColor = .red
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
+        updateUI(atIndex: indexPath.row, imgView: cell.imageView)
         return cell
+        
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        <#code#>
-    }
+}
+
+// MARK:-  Delegate
+extension ViewController: UICollectionViewDelegate {
+    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    //        <#code#>
+    //    }
 }
