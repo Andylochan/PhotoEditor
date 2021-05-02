@@ -18,12 +18,13 @@ class EditVC: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var selectedURL: String = ""
-    var newYPos: Int = 40
     var orgImage: UIImage?
     var editedImage: UIImage?
     var thumbnailArray: [UIImage] = []
+    var newYPos: Int = 40
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         filterCollection.delegate = self
@@ -40,9 +41,26 @@ class EditVC: UIViewController {
         resetBtn.layer.cornerRadius = imageView.layer.frame.height / CGFloat(45)
         
         activityIndicator.hidesWhenStopped = true
+        
     }
     
 // MARK:- IBActions
+    
+    @IBAction func barBtnPostTapped(_ sender: Any) {
+        
+//        PostHandler.shared.fetchURL { (result, urlPath) in
+//            print(result! ? "POST SUCCESSFUL" : "POST ERROR")
+//        }
+        PostHandler.shared.makePostRequest(originalURL: selectedURL, editedUIImage: editedImage!)
+        
+        let alert = UIAlertController(title: "POST", message: "Image Sent", preferredStyle: .alert)
+        let okay = UIAlertAction(title: "Close", style: .default)
+        
+        alert.view.tintColor = .systemRed
+        alert.addAction(okay)
+        
+        present(alert, animated: true)
+    }
     
     @IBAction func addTextTapped(_ sender: UIButton) {
         
@@ -68,6 +86,7 @@ class EditVC: UIViewController {
     }
     
     @IBAction func rainbowTapped(_ sender: UIButton) {
+        
         activityIndicator.startAnimating()
     
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.25) { [weak self] in
@@ -108,8 +127,7 @@ class EditVC: UIViewController {
         }
     }
     
-    // Using CoreGraphics
-    func createTextOverlay(with stringToMerge: String, at yPos: Int) -> UIImage {
+    private func createTextOverlay(with stringToMerge: String, at yPos: Int) -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
         let img = renderer.image { ctx in
             let paragraphStyle = NSMutableParagraphStyle()

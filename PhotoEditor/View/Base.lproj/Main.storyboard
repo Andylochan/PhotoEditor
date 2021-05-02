@@ -214,7 +214,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Edit" id="njb-ud-Yhb">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="Ypa-Qi-Kqm"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="Ypa-Qi-Kqm">
+                            <connections>
+                                <action selector="barBtnPostTapped:" destination="MKt-Wp-qMm" id="5DO-Lu-SvE"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="vPg-Gx-LnA" id="nXQ-JR-ha0"/>
