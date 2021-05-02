@@ -11,11 +11,11 @@ import SwiftyJSON
 class ImageHandler {
     
     static let shared = ImageHandler()
-    private var images = [Image]()
     
     func fetchImages(closure: @escaping (Bool?, [Image]?) -> Void) {
         
         let url = "https://eulerity-hackathon.appspot.com/image"
+        var images = [Image]()
         
         AF.request(url, method: .get).responseJSON { response in
             
@@ -32,16 +32,16 @@ class ImageHandler {
                                         
                     for img in jsonArray {
                         
-                        let url = img.dictionaryObject?["url"] as? String ?? ""
+                        let url     = img.dictionaryObject?["url"] as? String ?? ""
                         let created = img.dictionaryObject?["created"] as? String ?? ""
                         let updated = img.dictionaryObject?["updated"] as? String ?? ""
                         
                         let imageToAppend = Image(url: url, created: created, updated: updated)
-                        self.images.append(imageToAppend)
+                        images.append(imageToAppend)
                         
                     }
                     
-                    closure(true, self.images)
+                    closure(true, images)
                 }
             }
         }

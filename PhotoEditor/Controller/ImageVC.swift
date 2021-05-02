@@ -17,7 +17,6 @@ class ImageVC: UIViewController{
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        navigationItem.title = "Tap To Edit"
         
         loadImages()
 
@@ -47,7 +46,8 @@ class ImageVC: UIViewController{
     
 }
 
-// MARK:-  Datasource
+// MARK:-  CollectionView Methods
+// Datasource
 extension ImageVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -63,9 +63,14 @@ extension ImageVC: UICollectionViewDataSource {
     }
 }
 
-// MARK:-  Delegate
+// Delegate
 extension ImageVC: UICollectionViewDelegate {
-    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    //        <#code#>
-    //    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "EditVC") as! EditVC
+        controller.selectedURL = imagesArray[indexPath.row].url
+        self.navigationController?.pushViewController(controller, animated: true)
+        
+    }
 }
