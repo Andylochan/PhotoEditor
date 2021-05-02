@@ -1,11 +1,14 @@
 //
-//  Filters.swift
+//  UIImage + Filters.swift
 //  PhotoEditor
 //
 //  Created by Andy Lochan on 5/1/21.
 //
 
 import UIKit
+
+let filterNames = ["Chrome", "Fade", "Instant", "Mono", "Noir", "Process", "Tonal", "Transfer"]
+let filterTypes: [FilterType] = [.Chrome, .Fade, .Instant, .Mono, .Noir, .Process, .Tonal, .Transfer]
 
 enum FilterType : String {
     

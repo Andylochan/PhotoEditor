@@ -13,11 +13,21 @@ class EditVC: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var filterCollection: UICollectionView!
     
-    let filterNames = ["Chrome", "Fade", "Instant", "Mono", "Noir", "Process", "Tonal", "Transfer"]
-    let filterTypes: [FilterType] = [.Chrome, .Fade, .Instant, .Mono, .Noir, .Process, .Tonal, .Transfer]
+    @IBAction func addTextTapped(_ sender: UIButton) {
+        //Add Textfield Here
+        let topText = createTextOverlay(with: "Hello Doge")
+        imageView.image = editedImage?.mergeWith(topImage: topText)
+        editedImage = imageView.image
+    }
+    @IBAction func resetTapped(_ sender: UIButton) {
+        imageView.image = orgImage
+        editedImage = orgImage
+    }
     
     var selectedURL: String = ""
-    var myImage: UIImage?
+    var orgImage: UIImage?
+    var editedImage: UIImage?
+    var thumbnailArray: [UIImage] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +35,14 @@ class EditVC: UIViewController {
         filterCollection.delegate = self
         filterCollection.dataSource = self
 
+        createThumbnailsArray()
         updateImageView()
         
-        myImage = createUIImageFromURL()
+        orgImage = createUIImageFromURL()
+        editedImage = orgImage
     }
+    
+// MARK:- Methods
     
     private func updateImageView() {
         guard let url = URL(string: selectedURL) else { return }
@@ -46,6 +60,28 @@ class EditVC: UIViewController {
         return image
     }
     
+    private func createThumbnailsArray() {
+        for i in 0 ... filterNames.count - 1  {
+            let filter = filterTypes[i]
+            thumbnailArray.append(UIImage(named: "cuteShiba")!.addFilter(filter: filter))
+        }
+    }
+    
+    // Using CoreGraphics
+    func createTextOverlay(with stringToMerge: String) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        let img = renderer.image { ctx in
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+
+            let attrs = [NSAttributedString.Key.font: UIFont(name: "Futura", size: 36)!, NSAttributedString.Key.paragraphStyle: paragraphStyle]
+
+            let string = stringToMerge
+            string.draw(with: CGRect(x: 32, y: 32, width: 448, height: 448), options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
+        }
+        return img
+    }
+    
 }
 
 // MARK:-  CollectionView Methods
@@ -60,6 +96,7 @@ extension EditVC: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
         cell.filterName.text = filterNames[indexPath.row]
+        cell.filterImageView.image = thumbnailArray[indexPath.row]
         return cell
     }
 
@@ -70,7 +107,8 @@ extension EditVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let filter = filterTypes[indexPath.row]
-        imageView.image = myImage?.addFilter(filter: filter)
-        
+        imageView.image = editedImage?.addFilter(filter: filter)
+        editedImage = imageView.image
     }
+
 }
