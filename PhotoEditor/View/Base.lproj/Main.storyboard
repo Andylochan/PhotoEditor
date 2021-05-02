@@ -9,41 +9,44 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--ImageVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PhotoEditor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ImageVC" customModule="PhotoEditor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7gq-1X-tY0">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="esz-4T-JBh">
-                                    <size key="itemSize" width="150" height="150"/>
-                                    <size key="estimatedItemSize" width="150" height="150"/>
+                                    <size key="itemSize" width="175" height="175"/>
+                                    <size key="estimatedItemSize" width="175" height="175"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="30" minY="30" maxX="30" maxY="30"/>
+                                    <inset key="sectionInset" minX="14" minY="14" maxX="14" maxY="14"/>
                                 </collectionViewFlowLayout>
-                                <imageView key="backgroundView" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whiteBG" id="MU3-40-6Lz">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </imageView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="EIV-Ig-kLl" customClass="ImageCell" customModule="PhotoEditor" customModuleProvider="target">
-                                        <rect key="frame" x="30" y="30" width="150" height="150"/>
+                                        <rect key="frame" x="14" y="14" width="175" height="175"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ffe-tu-Q5D">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="175" height="175"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u6s-v9-nnv">
-                                                    <rect key="frame" x="5" y="5" width="140" height="140"/>
+                                                    <rect key="frame" x="-12.5" y="-12.5" width="200" height="200"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="140" id="2jU-TE-L95"/>
-                                                        <constraint firstAttribute="height" constant="140" id="nuI-IJ-l4G"/>
+                                                        <constraint firstAttribute="width" constant="200" id="2jU-TE-L95"/>
+                                                        <constraint firstAttribute="height" constant="200" id="nuI-IJ-l4G"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="2"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -51,7 +54,7 @@
                                                 <constraint firstItem="u6s-v9-nnv" firstAttribute="centerX" secondItem="Ffe-tu-Q5D" secondAttribute="centerX" id="U0y-3P-sPQ"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="150" height="150"/>
+                                        <size key="customSize" width="175" height="175"/>
                                         <connections>
                                             <outlet property="imageView" destination="u6s-v9-nnv" id="R2Z-Gn-8li"/>
                                         </connections>
@@ -98,7 +101,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="whiteBG" width="564" height="1003"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class ViewController: UIViewController{
+class ImageVC: UIViewController{
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -48,7 +48,7 @@ class ViewController: UIViewController{
 }
 
 // MARK:-  Datasource
-extension ViewController: UICollectionViewDataSource {
+extension ImageVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imagesArray.count
@@ -64,7 +64,7 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 // MARK:-  Delegate
-extension ViewController: UICollectionViewDelegate {
+extension ImageVC: UICollectionViewDelegate {
     //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     //        <#code#>
     //    }
