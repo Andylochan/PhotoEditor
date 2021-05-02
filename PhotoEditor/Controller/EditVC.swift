@@ -18,7 +18,6 @@ class EditVC: UIViewController {
     
     var selectedURL: String = ""
     var myImage: UIImage?
-//    var thumbnailArray: [UIImage] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +28,6 @@ class EditVC: UIViewController {
         updateImageView()
         
         myImage = createUIImageFromURL()
-//        createThumbnails()
     }
     
     private func updateImageView() {
@@ -48,18 +46,6 @@ class EditVC: UIViewController {
         return image
     }
     
-//    private func createThumbnails() {
-//        var tempArray: [UIImage] = [myImage!]
-//
-//        for i in 0 ... filterNames.count - 1 {
-//            let tempImage = myImage
-//            let filter = filterTypes[i]
-//            tempArray.append((tempImage?.addFilter(filter: filter))!)
-//        }
-//
-//        thumbnailArray = tempArray
-//    }
-    
 }
 
 // MARK:-  CollectionView Methods
@@ -71,9 +57,9 @@ extension EditVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
         cell.filterName.text = filterNames[indexPath.row]
-//        cell.filterImageView.image = thumbnailArray[indexPath.row]
         return cell
     }
 
@@ -81,5 +67,10 @@ extension EditVC: UICollectionViewDataSource {
 
 // Delegate
 extension EditVC: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let filter = filterTypes[indexPath.row]
+        imageView.image = myImage?.addFilter(filter: filter)
+        
+    }
 }

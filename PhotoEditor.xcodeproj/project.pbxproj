@@ -19,6 +19,7 @@
 		14C1FCEF263E266E00E06E84 /* EditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C1FCEE263E266E00E06E84 /* EditVC.swift */; };
 		14C1FCF8263E35FC00E06E84 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C1FCF7263E35FC00E06E84 /* Filters.swift */; };
 		14C1FD04263E428600E06E84 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C1FD03263E428600E06E84 /* FilterCell.swift */; };
+		14C1FD0C263E573500E06E84 /* Thumbnail + Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C1FD0B263E573500E06E84 /* Thumbnail + Filter.swift */; };
 		28AAA9CD5F42F675A72B8CBC /* Pods_PhotoEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A15538D78768169FDBB7E07 /* Pods_PhotoEditor.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		14C1FCEE263E266E00E06E84 /* EditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditVC.swift; sourceTree = "<group>"; };
 		14C1FCF7263E35FC00E06E84 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		14C1FD03263E428600E06E84 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		14C1FD0B263E573500E06E84 /* Thumbnail + Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Thumbnail + Filter.swift"; sourceTree = "<group>"; };
 		366076F9C9331DFC23674C15 /* Pods-PhotoEditor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoEditor.release.xcconfig"; path = "Target Support Files/Pods-PhotoEditor/Pods-PhotoEditor.release.xcconfig"; sourceTree = "<group>"; };
 		37C2EEA872333AE8F27D4A0C /* Pods-PhotoEditor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoEditor.debug.xcconfig"; path = "Target Support Files/Pods-PhotoEditor/Pods-PhotoEditor.debug.xcconfig"; sourceTree = "<group>"; };
 		5A15538D78768169FDBB7E07 /* Pods_PhotoEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				14C1FCF7263E35FC00E06E84 /* Filters.swift */,
+				14C1FD0B263E573500E06E84 /* Thumbnail + Filter.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				14C1FCD4263DF86400E06E84 /* ImageHandler.swift in Sources */,
 				14C1FC40263DD93800E06E84 /* AppDelegate.swift in Sources */,
 				14C1FC42263DD93800E06E84 /* SceneDelegate.swift in Sources */,
+				14C1FD0C263E573500E06E84 /* Thumbnail + Filter.swift in Sources */,
 				14C1FCC9263DEF9F00E06E84 /* ImageCell.swift in Sources */,
 				14C1FD04263E428600E06E84 /* FilterCell.swift in Sources */,
 				14C1FCEF263E266E00E06E84 /* EditVC.swift in Sources */,
