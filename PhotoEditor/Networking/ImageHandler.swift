@@ -12,12 +12,13 @@ class ImageHandler {
     
     static let shared = ImageHandler()
     
+    // GET Images for CollectionView
     func fetchImages(closure: @escaping (Bool?, [Image]?) -> Void) {
         
         let url = "https://eulerity-hackathon.appspot.com/image"
         var images = [Image]()
         
-        AF.request(url, method: .get).responseJSON { response in
+        Alamofire.request(url, method: .get).responseJSON { response in
             
             if response.error != nil {
                 closure(nil, nil)
@@ -42,6 +43,30 @@ class ImageHandler {
                     }
                     
                     closure(true, images)
+                }
+            }
+        }
+    }
+    
+    // GET URL for POST request in PostHandler
+    func fetchURL(closure: @escaping (Bool?, String?) -> Void) {
+        
+        let url = "https://eulerity-hackathon.appspot.com/upload"
+        
+        Alamofire.request(url, method: .get).responseJSON { response in
+            
+            if response.error != nil {
+                closure(false, nil)
+                return
+            }
+            
+            if let data = response.data {
+                
+                if let json = try? JSON(data: data) {
+                    
+                    let url = json.dictionaryObject?["url"] as? String ?? ""
+                    
+                    closure(true, url)
                 }
             }
         }

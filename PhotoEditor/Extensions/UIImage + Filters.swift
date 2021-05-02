@@ -12,14 +12,14 @@ let filterTypes: [FilterType] = [.Chrome, .Fade, .Instant, .Mono, .Noir, .Proces
 
 enum FilterType : String {
     
-    case Chrome = "CIPhotoEffectChrome"
-    case Fade = "CIPhotoEffectFade"
-    case Instant = "CIPhotoEffectInstant"
-    case Mono = "CIPhotoEffectMono"
-    case Noir = "CIPhotoEffectNoir"
-    case Process = "CIPhotoEffectProcess"
-    case Tonal = "CIPhotoEffectTonal"
-    case Transfer =  "CIPhotoEffectTransfer"
+    case Chrome     = "CIPhotoEffectChrome"
+    case Fade       = "CIPhotoEffectFade"
+    case Instant    = "CIPhotoEffectInstant"
+    case Mono       = "CIPhotoEffectMono"
+    case Noir       = "CIPhotoEffectNoir"
+    case Process    = "CIPhotoEffectProcess"
+    case Tonal      = "CIPhotoEffectTonal"
+    case Transfer   = "CIPhotoEffectTransfer"
     
 }
 
@@ -49,7 +49,7 @@ extension UIImage {
         // figure out the height of one section (there are six)
         let sectionHeight = img.size.height / 6
 
-        // set up the colors
+        // set up colors
         let red = UIColor(red: 1, green: 0.5, blue: 0.5, alpha: 0.8)
         let orange = UIColor(red: 1, green: 0.7, blue: 0.35, alpha: 0.8)
         let yellow = UIColor(red: 1, green: 0.85, blue: 0.1, alpha: 0.65)
@@ -75,7 +75,7 @@ extension UIImage {
                 ctx.fill(rect)
             }
 
-            // draw our input image over using Luminosity mode, with a little bit of alpha to make it fainter
+            // draw our input image over using Luminosity mode
             img.draw(in: rect, blendMode: .luminosity, alpha: 0.6)
         }
 

@@ -22,6 +22,7 @@ class EditVC: UIViewController {
     var editedImage: UIImage?
     var thumbnailArray: [UIImage] = []
     var newYPos: Int = 40
+    var isRainbow: Bool = false
 
     override func viewDidLoad() {
         
@@ -47,10 +48,7 @@ class EditVC: UIViewController {
 // MARK:- IBActions
     
     @IBAction func barBtnPostTapped(_ sender: Any) {
-        
-//        PostHandler.shared.fetchURL { (result, urlPath) in
-//            print(result! ? "POST SUCCESSFUL" : "POST ERROR")
-//        }
+
         PostHandler.shared.makePostRequest(originalURL: selectedURL, editedUIImage: editedImage!)
         
         let alert = UIAlertController(title: "POST", message: "Image Sent", preferredStyle: .alert)
@@ -93,6 +91,7 @@ class EditVC: UIViewController {
             self?.imageView.image = self?.editedImage?.addRainbow(to: (self?.editedImage)!)
             self?.editedImage = self?.imageView.image
             self?.activityIndicator.stopAnimating()
+            self?.isRainbow.toggle()
         }
         
     }
@@ -100,6 +99,7 @@ class EditVC: UIViewController {
     @IBAction func resetTapped(_ sender: UIButton) {
         imageView.image = orgImage
         editedImage = orgImage
+        isRainbow = false
     }
     
 // MARK:- Methods
@@ -166,8 +166,20 @@ extension EditVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let filter = filterTypes[indexPath.row]
-        imageView.image = editedImage?.addFilter(filter: filter)
-        editedImage = imageView.image
+        
+        if isRainbow {
+            activityIndicator.startAnimating()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.25) { [weak self] in
+                self?.imageView.image = self?.editedImage?.addFilter(filter: filter)
+                self?.editedImage = self?.imageView.image
+                self?.activityIndicator.stopAnimating()
+            }
+            
+        } else {
+            imageView.image = editedImage?.addFilter(filter: filter)
+            editedImage = imageView.image
+        }
+        
     }
-
 }
