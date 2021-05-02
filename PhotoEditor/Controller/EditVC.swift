@@ -12,19 +12,13 @@ class EditVC: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var filterCollection: UICollectionView!
-    
-    @IBAction func addTextTapped(_ sender: UIButton) {
-        //Add Textfield Here
-        let topText = createTextOverlay(with: "Hello Doge")
-        imageView.image = editedImage?.mergeWith(topImage: topText)
-        editedImage = imageView.image
-    }
-    @IBAction func resetTapped(_ sender: UIButton) {
-        imageView.image = orgImage
-        editedImage = orgImage
-    }
+    @IBOutlet weak var addBtn: UIButton!
+    @IBOutlet weak var rainbowBtn: UIButton!
+    @IBOutlet weak var resetBtn: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var selectedURL: String = ""
+    var newYPos: Int = 40
     var orgImage: UIImage?
     var editedImage: UIImage?
     var thumbnailArray: [UIImage] = []
@@ -39,6 +33,53 @@ class EditVC: UIViewController {
         updateImageView()
         
         orgImage = createUIImageFromURL()
+        editedImage = orgImage
+        
+        addBtn.layer.cornerRadius = imageView.layer.frame.height / CGFloat(45)
+        rainbowBtn.layer.cornerRadius = imageView.layer.frame.height / CGFloat(45)
+        resetBtn.layer.cornerRadius = imageView.layer.frame.height / CGFloat(45)
+        
+        activityIndicator.hidesWhenStopped = true
+    }
+    
+// MARK:- IBActions
+    
+    @IBAction func addTextTapped(_ sender: UIButton) {
+        
+        let alert = UIAlertController(title: "Add Text", message: "Enter text to overlay", preferredStyle: .alert)
+        alert.view.tintColor = .darkGray
+        alert.addTextField()
+        
+        let add = UIAlertAction(title: "Add", style: .default) { [unowned self] _ in
+            let textInput = alert.textFields![0]
+            let text = textInput.text ?? ""
+            
+            let topText = createTextOverlay(with: text, at: newYPos)
+            newYPos += 40
+            imageView.image = editedImage?.mergeWith(topImage: topText)
+            editedImage = imageView.image
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(add)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true)
+    }
+    
+    @IBAction func rainbowTapped(_ sender: UIButton) {
+        activityIndicator.startAnimating()
+    
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.25) { [weak self] in
+            self?.imageView.image = self?.editedImage?.addRainbow(to: (self?.editedImage)!)
+            self?.editedImage = self?.imageView.image
+            self?.activityIndicator.stopAnimating()
+        }
+        
+    }
+    
+    @IBAction func resetTapped(_ sender: UIButton) {
+        imageView.image = orgImage
         editedImage = orgImage
     }
     
@@ -68,7 +109,7 @@ class EditVC: UIViewController {
     }
     
     // Using CoreGraphics
-    func createTextOverlay(with stringToMerge: String) -> UIImage {
+    func createTextOverlay(with stringToMerge: String, at yPos: Int) -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
         let img = renderer.image { ctx in
             let paragraphStyle = NSMutableParagraphStyle()
@@ -77,7 +118,7 @@ class EditVC: UIViewController {
             let attrs = [NSAttributedString.Key.font: UIFont(name: "Futura", size: 36)!, NSAttributedString.Key.paragraphStyle: paragraphStyle]
 
             let string = stringToMerge
-            string.draw(with: CGRect(x: 32, y: 32, width: 448, height: 448), options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
+            string.draw(with: CGRect(x: 32, y: yPos, width: 448, height: 448), options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
         }
         return img
     }

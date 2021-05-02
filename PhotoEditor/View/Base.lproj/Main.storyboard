@@ -27,6 +27,10 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="14" minY="14" maxX="14" maxY="14"/>
                                 </collectionViewFlowLayout>
+                                <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" id="MM2-Hx-E7Z">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </activityIndicatorView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="EIV-Ig-kLl" customClass="ImageCell" customModule="PhotoEditor" customModuleProvider="target">
                                         <rect key="frame" x="14" y="14" width="175" height="175"/>
@@ -73,6 +77,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Photos" id="jku-yH-ke0"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="MM2-Hx-E7Z" id="uv4-lg-M1k"/>
                         <outlet property="collectionView" destination="7gq-1X-tY0" id="r0u-FE-20r"/>
                         <segue destination="MKt-Wp-qMm" kind="show" identifier="EditVC" id="cxP-kr-SGa"/>
                     </connections>
@@ -147,21 +152,36 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PjY-AD-pCw">
-                                <rect key="frame" x="0.0" y="702" width="414" height="160"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PjY-AD-pCw" userLabel="V Stack View">
+                                <rect key="frame" x="10" y="702" width="394" height="160"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Je0-u0-HN3">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
-                                        <color key="backgroundColor" systemColor="systemRedColor"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Add Text"/>
-                                        <connections>
-                                            <action selector="addTextTapped:" destination="MKt-Wp-qMm" eventType="touchUpInside" id="JFa-fA-AtT"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YOq-qD-JOm" userLabel="H Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="75"/>
+                                        <subviews>
+                                            <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xvq-FQ-Etx">
+                                                <rect key="frame" x="0.0" y="0.0" width="192" height="75"/>
+                                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Add Text"/>
+                                                <connections>
+                                                    <action selector="addTextTapped:" destination="MKt-Wp-qMm" eventType="touchUpInside" id="AfX-kf-C1v"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MP9-Uy-UHC">
+                                                <rect key="frame" x="202" y="0.0" width="192" height="75"/>
+                                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Rainbow"/>
+                                                <connections>
+                                                    <action selector="rainbowTapped:" destination="MKt-Wp-qMm" eventType="touchUpInside" id="qm6-fb-UcE"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                     <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F4D-zm-aO9">
-                                        <rect key="frame" x="0.0" y="85" width="414" height="75"/>
+                                        <rect key="frame" x="0.0" y="85" width="394" height="75"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -172,19 +192,24 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="vPg-Gx-LnA">
+                                <rect key="frame" x="188.5" y="330" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BXo-p2-V5y"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
-                            <constraint firstItem="PjY-AD-pCw" firstAttribute="trailing" secondItem="BXo-p2-V5y" secondAttribute="trailing" id="107-zb-zlz"/>
+                            <constraint firstItem="PjY-AD-pCw" firstAttribute="trailing" secondItem="BXo-p2-V5y" secondAttribute="trailing" constant="-10" id="107-zb-zlz"/>
                             <constraint firstItem="PjY-AD-pCw" firstAttribute="top" secondItem="wmG-uU-DwV" secondAttribute="bottom" constant="8" symbolic="YES" id="6RW-NX-fqB"/>
                             <constraint firstItem="wmG-uU-DwV" firstAttribute="leading" secondItem="BXo-p2-V5y" secondAttribute="leading" id="FiG-Gj-Xvv"/>
+                            <constraint firstItem="vPg-Gx-LnA" firstAttribute="centerX" secondItem="xwe-OD-QLk" secondAttribute="centerX" id="GmI-Ts-6nN"/>
                             <constraint firstItem="PjY-AD-pCw" firstAttribute="bottom" secondItem="BXo-p2-V5y" secondAttribute="bottom" id="JXE-hP-ghk"/>
                             <constraint firstItem="wmG-uU-DwV" firstAttribute="trailing" secondItem="BXo-p2-V5y" secondAttribute="trailing" id="NYz-KD-9T8"/>
+                            <constraint firstItem="vPg-Gx-LnA" firstAttribute="top" secondItem="BXo-p2-V5y" secondAttribute="top" constant="190" id="PlP-Km-RMb"/>
                             <constraint firstItem="wSk-eN-etK" firstAttribute="trailing" secondItem="BXo-p2-V5y" secondAttribute="trailing" id="fKJ-dw-qBc"/>
                             <constraint firstItem="wmG-uU-DwV" firstAttribute="top" secondItem="wSk-eN-etK" secondAttribute="bottom" constant="10" id="gBu-dv-kdw"/>
                             <constraint firstItem="wSk-eN-etK" firstAttribute="leading" secondItem="BXo-p2-V5y" secondAttribute="leading" id="oLA-64-9Le"/>
-                            <constraint firstItem="PjY-AD-pCw" firstAttribute="leading" secondItem="BXo-p2-V5y" secondAttribute="leading" id="u6o-LG-u0Q"/>
+                            <constraint firstItem="PjY-AD-pCw" firstAttribute="leading" secondItem="BXo-p2-V5y" secondAttribute="leading" constant="10" id="u6o-LG-u0Q"/>
                             <constraint firstItem="wSk-eN-etK" firstAttribute="top" secondItem="BXo-p2-V5y" secondAttribute="top" id="zZ7-yc-Vr7"/>
                         </constraints>
                     </view>
@@ -192,8 +217,12 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="Ypa-Qi-Kqm"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="vPg-Gx-LnA" id="nXQ-JR-ha0"/>
+                        <outlet property="addBtn" destination="xvq-FQ-Etx" id="W7K-qH-lPu"/>
                         <outlet property="filterCollection" destination="wmG-uU-DwV" id="l8G-Pk-o3r"/>
                         <outlet property="imageView" destination="wSk-eN-etK" id="tpL-WQ-xmY"/>
+                        <outlet property="rainbowBtn" destination="MP9-Uy-UHC" id="vkm-Go-Se1"/>
+                        <outlet property="resetBtn" destination="F4D-zm-aO9" id="X1b-Gk-tiG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cj0-lh-Y5O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -11,12 +11,15 @@ import Kingfisher
 class ImageVC: UIViewController{
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     private var imagesArray = [Image]()
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        activityIndicator.color = .systemRed
+        activityIndicator.hidesWhenStopped = true
         
         loadImages()
 
@@ -25,6 +28,7 @@ class ImageVC: UIViewController{
     }
     
     private func loadImages() {
+        activityIndicator.startAnimating()
         
         ImageHandler.shared.fetchImages { [unowned self] (result, images) in
             
@@ -32,6 +36,10 @@ class ImageVC: UIViewController{
                 self.imagesArray = images ?? self.imagesArray
                 collectionView.reloadData()
                 
+                //End activity indicator
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                    self?.activityIndicator.stopAnimating()
+                }
                 print(res ? "Success" : "Error")
             }
         }
