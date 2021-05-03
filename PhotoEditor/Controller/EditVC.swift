@@ -25,7 +25,6 @@ class EditVC: UIViewController {
     var isRainbow: Bool = false
 
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         filterCollection.delegate = self
@@ -33,16 +32,12 @@ class EditVC: UIViewController {
 
         createThumbnailsArray()
         updateImageView()
+        setupButtons()
         
-        orgImage = createUIImageFromURL()
+        orgImage = createUIImageFromURL(selectedURL)
         editedImage = orgImage
-        
-        addBtn.layer.cornerRadius = imageView.layer.frame.height / CGFloat(45)
-        rainbowBtn.layer.cornerRadius = imageView.layer.frame.height / CGFloat(45)
-        resetBtn.layer.cornerRadius = imageView.layer.frame.height / CGFloat(45)
-        
+
         activityIndicator.hidesWhenStopped = true
-        
     }
     
 // MARK:- IBActions
@@ -104,14 +99,19 @@ class EditVC: UIViewController {
     
 // MARK:- Methods
     
+    private func setupButtons() {
+        addBtn.layer.cornerRadius = imageView.layer.frame.height / CGFloat(45)
+        rainbowBtn.layer.cornerRadius = imageView.layer.frame.height / CGFloat(45)
+        resetBtn.layer.cornerRadius = imageView.layer.frame.height / CGFloat(45)
+    }
+    
     private func updateImageView() {
         guard let url = URL(string: selectedURL) else { return }
         imageView.kf.setImage(with: url)
     }
     
-    private func createUIImageFromURL() -> UIImage? {
+    private func createUIImageFromURL(_ urlString: String) -> UIImage? {
         var image: UIImage?
-        let urlString = selectedURL
 
         let url = NSURL(string: urlString)! as URL
         if let imageData: NSData = NSData(contentsOf: url) {
@@ -148,23 +148,21 @@ class EditVC: UIViewController {
 extension EditVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filterNames.count
+        filterNames.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
         cell.filterName.text = filterNames[indexPath.row]
         cell.filterImageView.image = thumbnailArray[indexPath.row]
         return cell
     }
-
 }
 
 // Delegate
 extension EditVC: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let filter = filterTypes[indexPath.row]
         
         if isRainbow {
@@ -175,11 +173,9 @@ extension EditVC: UICollectionViewDelegate {
                 self?.editedImage = self?.imageView.image
                 self?.activityIndicator.stopAnimating()
             }
-            
         } else {
             imageView.image = editedImage?.addFilter(filter: filter)
             editedImage = imageView.image
         }
-        
     }
 }

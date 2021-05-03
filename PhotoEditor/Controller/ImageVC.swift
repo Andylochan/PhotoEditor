@@ -46,10 +46,8 @@ class ImageVC: UIViewController{
     }
     
     private func updateUI(atIndex: Int, imgView: UIImageView) {
-        
-        guard let url = URL(string: imagesArray[atIndex].url) else { return }
+        let url = URL(string: imagesArray[atIndex].url) //KF can take nil
         imgView.kf.setImage(with: url)
-        
     }
     
 }
@@ -59,26 +57,23 @@ class ImageVC: UIViewController{
 extension ImageVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imagesArray.count
+        imagesArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
         updateUI(atIndex: indexPath.row, imgView: cell.imageView)
         return cell
-        
     }
 }
 
 // Delegate
 extension ImageVC: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "EditVC") as! EditVC
         controller.selectedURL = imagesArray[indexPath.row].url
         self.navigationController?.pushViewController(controller, animated: true)
-        
     }
 }
