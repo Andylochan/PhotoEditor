@@ -1,5 +1,5 @@
 //
-//  UIImage + Merge.swift
+//  UIImage+Merge.swift
 //  PhotoEditor
 //
 //  Created by Andy Lochan on 5/2/21.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-// Merge two UIImages into one
 extension UIImage {
     
+    // Merge two UIImages into one
     func mergeWith(topImage: UIImage) -> UIImage {
         let bottomImage = self
         

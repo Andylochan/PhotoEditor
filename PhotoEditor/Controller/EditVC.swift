@@ -91,7 +91,7 @@ class EditVC: UIViewController {
             self?.imageView.image = self?.editedImage?.addRainbow(to: (self?.editedImage)!)
             self?.editedImage = self?.imageView.image
             self?.activityIndicator.stopAnimating()
-            self?.isRainbow.toggle()
+            self?.isRainbow = true
         }
         
     }

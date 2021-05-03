@@ -1,5 +1,5 @@
 //
-//  UIImage + Filters.swift
+//  UIImage+Filters.swift
 //  PhotoEditor
 //
 //  Created by Andy Lochan on 5/1/21.
@@ -7,27 +7,11 @@
 
 import UIKit
 
-let filterNames = ["Chrome", "Fade", "Instant", "Mono", "Noir", "Process", "Tonal", "Transfer"]
-let filterTypes: [FilterType] = [.Chrome, .Fade, .Instant, .Mono, .Noir, .Process, .Tonal, .Transfer]
-
-enum FilterType : String {
-    
-    case Chrome     = "CIPhotoEffectChrome"
-    case Fade       = "CIPhotoEffectFade"
-    case Instant    = "CIPhotoEffectInstant"
-    case Mono       = "CIPhotoEffectMono"
-    case Noir       = "CIPhotoEffectNoir"
-    case Process    = "CIPhotoEffectProcess"
-    case Tonal      = "CIPhotoEffectTonal"
-    case Transfer   = "CIPhotoEffectTransfer"
-    
-}
-
 extension UIImage {
     
-    func addFilter(filter : FilterType) -> UIImage {
+    func addFilter(filter : Filter.FilterType) -> UIImage {
         
-        let filter = CIFilter(name: filter.rawValue)
+        let filter = CIFilter(name: filter.key)
         
         // convert UIImage to CIImage and set as input
         let ciInput = CIImage(image: self)
@@ -66,19 +50,15 @@ extension UIImage {
             // loop through all six colors
             for i in 0 ..< 6 {
                 let color = colors[i]
-
                 // figure out the rect for this section
                 let rect = CGRect(x: 0, y: CGFloat(i) * sectionHeight, width: rect.width, height: sectionHeight)
-
                 // draw it onto the context at the right place
                 color.set()
                 ctx.fill(rect)
             }
-
             // draw our input image over using Luminosity mode
             img.draw(in: rect, blendMode: .luminosity, alpha: 0.6)
         }
-
         return result
     }
     

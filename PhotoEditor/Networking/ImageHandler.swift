@@ -25,25 +25,18 @@ class ImageHandler {
                 return
             }
             
-            if let data = response.data {
+            if let data = response.data, let json = try? JSON(data: data) {
+                let jsonArray = json.array ?? []
                 
-                if let json = try? JSON(data: data) {
+                for img in jsonArray {
+                    let url = img.dictionaryObject?["url"] as? String ?? ""
+                    let created = img.dictionaryObject?["created"] as? String ?? ""
+                    let updated = img.dictionaryObject?["updated"] as? String ?? ""
                     
-                    let jsonArray = json.array ?? []
-                                        
-                    for img in jsonArray {
-                        
-                        let url     = img.dictionaryObject?["url"] as? String ?? ""
-                        let created = img.dictionaryObject?["created"] as? String ?? ""
-                        let updated = img.dictionaryObject?["updated"] as? String ?? ""
-                        
-                        let imageToAppend = Image(url: url, created: created, updated: updated)
-                        images.append(imageToAppend)
-                        
-                    }
-                    
-                    closure(true, images)
+                    let imageToAppend = Image(url: url, created: created, updated: updated)
+                    images.append(imageToAppend)
                 }
+                closure(true, images)
             }
         }
     }
@@ -54,24 +47,15 @@ class ImageHandler {
         let url = "https://eulerity-hackathon.appspot.com/upload"
         
         Alamofire.request(url, method: .get).responseJSON { response in
-            
-            if response.error != nil {
+            guard response.error == nil else {
                 closure(false, nil)
                 return
             }
             
-            if let data = response.data {
-                
-                if let json = try? JSON(data: data) {
-                    
-                    let url = json.dictionaryObject?["url"] as? String ?? ""
-                    
-                    closure(true, url)
-                }
+            if let data = response.data, let json = try? JSON(data: data) {
+                let url = json.dictionaryObject?["url"] as? String ?? ""
+                closure(true, url)
             }
         }
     }
-    
 }
-
-
