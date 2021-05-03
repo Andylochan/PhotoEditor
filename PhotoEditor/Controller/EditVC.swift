@@ -18,11 +18,11 @@ class EditVC: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var selectedURL: String = ""
-    var orgImage: UIImage?
-    var editedImage: UIImage?
-    var thumbnailArray: [UIImage] = []
-    var newYPos: Int = 40
-    var isRainbow: Bool = false
+    private var orgImage: UIImage?
+    private var editedImage: UIImage?
+    private var thumbnailArray: [UIImage] = []
+    private var newYPos: Int = 40
+    private var isRainbow: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
